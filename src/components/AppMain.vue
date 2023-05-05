@@ -26,5 +26,15 @@
 </template>
 
 <style lang="scss" scoped>
-
+    .sfondo{
+        background-color: orange;
+        
+        .container{
+            width: 80%;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+    }
 </style>

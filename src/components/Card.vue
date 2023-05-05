@@ -15,5 +15,10 @@
 </template>
 
 <style lang="scss" scoped>
-
+    .card{
+        width: calc((100% / 3) - 10px);
+        margin-top: 20px;
+        padding: 20px;
+        border-radius: 20px;
+    }
 </style>
