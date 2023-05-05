@@ -6,15 +6,15 @@
 </script>
 
 <template>
-    <head>
-        <h1>ofbnvgoqa</h1>
-    </head>
+    <header>
+        <h1>yu gi hooo</h1>
+    </header>
 </template>
 
 <style lang="scss" scoped>
-    head{
-        height: 80px;
-        width: 100%;
-        background-color: orange;
+    h1{
+        font-size: 3rem;
+        text-transform: uppercase;
+        padding: 20px;
     }
 </style>
