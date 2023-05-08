@@ -8,17 +8,18 @@ export default {
             store
         }
     },
-    
-
-    }
+}
 </script>
 
 <template>
     <div class="cerca">
-        <select v-model="store.testoRicerca">
-            <option v-for="(elem, index) in store.arrayArchetipi"  :value="elem">{{ elem }}</option>
-        </select>
-        <button @click="$emit('giuseppe')" type="submit">Cerca</button>
+        <div class="archetipos">
+            <select v-model="store.testoRicerca">
+                <option v-for="(elem, index) in store.arrayArchetipi"  :value="elem">{{ elem }}</option>
+            </select>
+            <button @click="$emit('giuseppe')" type="submit">Cerca</button>
+        </div>
+
     </div>
 </template>
 

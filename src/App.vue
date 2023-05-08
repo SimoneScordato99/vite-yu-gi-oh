@@ -2,6 +2,7 @@
   import AppHeader from './components/AppHeader.vue';
   import AppMain from './components/AppMain.vue';
   import Cerca from './components/Cerca.vue';
+  import spinner from './components/spinner.vue'
   import axios from 'axios';
   import {store} from './store';
 
@@ -10,7 +11,8 @@
     components:{
       AppHeader,
       Cerca,
-      AppMain
+      AppMain,
+      spinner
     },
     data(){
       return{
@@ -18,12 +20,33 @@
       }
     },
     created(){
-      this.carloApi()
       this.apiArchetipi()
+    },
+    computed:{
+      carloApi(){
+        store.spinner=true
+        if(store.testoRicerca==''){
+          axios.get(`https://db.ygoprodeck.com/api/v7/cardinfo.php?num=300&offset=1`)
+            .then((elem)=>{
+              const dataApi = elem.data.data
+              this.store.arrayCarte = dataApi
+              store.spinner=false
+            } )
+        } else{
+          axios.get(`https://db.ygoprodeck.com/api/v7/cardinfo.php?num=300&offset=1&archetype=${store.testoRicerca}`)
+            .then((elem)=>{
+              const dataApi = elem.data.data
+              this.store.arrayCarte = dataApi
+              store.spinner=false
+              
+              
+            } )
+        }
+      }
     },
     methods:{
       apiArchetipi(){
-        axios.get('https://db.ygoprodeck.com/api/v7/cardinfo.php?num=280&offset=1')
+        axios.get('https://db.ygoprodeck.com/api/v7/cardinfo.php?num=300&offset=1')
           .then((elem)=>{
             const dataApi2 = elem.data.data
             for (let i = 0; i < dataApi2.length; i++) {
@@ -34,34 +57,16 @@
             }
             console.log(this.store.arrayArchetipi)
           } )
-      },
-      carloApi(){
-        if(store.testoRicerca==''){
-          axios.get(`https://db.ygoprodeck.com/api/v7/cardinfo.php?num=980&offset=1`)
-            .then((elem)=>{
-              const dataApi = elem.data.data
-              this.store.arrayCarte = dataApi
-              
-              
-            } )
-        } else{
-          axios.get(`https://db.ygoprodeck.com/api/v7/cardinfo.php?num=980&offset=1&archetype=${store.testoRicerca}`)
-            .then((elem)=>{
-              const dataApi = elem.data.data
-              this.store.arrayCarte = dataApi
-              
-              
-            } )
-        }
-      }
+      } 
     }
   }
 </script>
 
 <template>
     <AppHeader/>
-    <Cerca @giuseppe="carloApi"/>
-    <AppMain/>
+    <Cerca @giuseppe="carloApi" @fabio="ricercaPerNome"/>
+    <spinner v-if="(store.spinner)"/>
+    <AppMain v-else/>
 </template>
 
 <style lang="scss">

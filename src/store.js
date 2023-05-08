@@ -4,6 +4,8 @@ export const store = reactive(
     {
         arrayCarte:[],
         arrayArchetipi:[],
-        testoRicerca:''
+        testoRicerca:'',
+        ricercaNome:'',
+        spinner: false
     }
 )
