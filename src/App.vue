@@ -1,6 +1,7 @@
 <script >
   import AppHeader from './components/AppHeader.vue';
   import AppMain from './components/AppMain.vue';
+  import Cerca from './components/Cerca.vue';
   import axios from 'axios';
   import {store} from './store';
 
@@ -8,6 +9,7 @@
     name: 'App',
     components:{
       AppHeader,
+      Cerca,
       AppMain
     },
     data(){
@@ -17,15 +19,27 @@
     },
     created(){
       this.carloApi()
+      this.apiArchetipi()
     },
     methods:{
+      apiArchetipi(){
+        axios.get('https://db.ygoprodeck.com/api/v7/cardinfo.php?num=280&offset=1')
+          .then((elem)=>{
+            const dataApi2 = elem.data.data
+            for (let i = 0; i < dataApi2.length; i++) {
+              const dataApiArchetype = elem.data.data[i].archetype;
+              if( !store.arrayArchetipi.includes(dataApiArchetype)){
+                store.arrayArchetipi.push(dataApiArchetype)
+              }
+            }
+            console.log(this.store.arrayArchetipi)
+          } )
+      },
       carloApi(){
         axios.get('https://db.ygoprodeck.com/api/v7/cardinfo.php?num=280&offset=1')
           .then((elem)=>{
-            console.log(elem.data.data)
             const dataApi = elem.data.data
             this.store.arrayCarte = dataApi
-            console.log(this.store.arrayCarte)
             
             
           } )
@@ -36,6 +50,7 @@
 
 <template>
     <AppHeader/>
+    <Cerca/>
     <AppMain/>
 </template>
 
