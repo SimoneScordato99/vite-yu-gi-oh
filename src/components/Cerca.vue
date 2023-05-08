@@ -7,14 +7,18 @@ export default {
         return{
             store
         }
-    }
+    },
+    
 
-}
+    }
 </script>
 
 <template>
     <div class="cerca">
-        <select v-for="(elem, index) in arrayArchetipi"></select>
+        <select v-model="store.testoRicerca">
+            <option v-for="(elem, index) in store.arrayArchetipi"  :value="elem">{{ elem }}</option>
+        </select>
+        <button @click="$emit('giuseppe')" type="submit">Cerca</button>
     </div>
 </template>
 

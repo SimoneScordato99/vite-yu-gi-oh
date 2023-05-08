@@ -36,13 +36,23 @@
           } )
       },
       carloApi(){
-        axios.get('https://db.ygoprodeck.com/api/v7/cardinfo.php?num=280&offset=1')
-          .then((elem)=>{
-            const dataApi = elem.data.data
-            this.store.arrayCarte = dataApi
-            
-            
-          } )
+        if(store.testoRicerca==''){
+          axios.get(`https://db.ygoprodeck.com/api/v7/cardinfo.php?num=980&offset=1`)
+            .then((elem)=>{
+              const dataApi = elem.data.data
+              this.store.arrayCarte = dataApi
+              
+              
+            } )
+        } else{
+          axios.get(`https://db.ygoprodeck.com/api/v7/cardinfo.php?num=980&offset=1&archetype=${store.testoRicerca}`)
+            .then((elem)=>{
+              const dataApi = elem.data.data
+              this.store.arrayCarte = dataApi
+              
+              
+            } )
+        }
       }
     }
   }
@@ -50,7 +60,7 @@
 
 <template>
     <AppHeader/>
-    <Cerca/>
+    <Cerca @giuseppe="carloApi"/>
     <AppMain/>
 </template>
 
